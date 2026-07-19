@@ -14,6 +14,7 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitTask;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -25,13 +26,15 @@ public class DeathNoteListener implements Listener {
     private final CondemnationManager condemnationManager;
     private final BanManager banManager;
     private final FateChallengeManager fateChallengeManager;
-    private final org.bukkit.plugin.java.JavaPlugin plugin;
+    private final BookManager bookManager;
+    private final JavaPlugin plugin;
 
     public DeathNoteListener(CondemnationManager condemnationManager, BanManager banManager, 
-                           FateChallengeManager fateChallengeManager, org.bukkit.plugin.java.JavaPlugin plugin) {
+                           FateChallengeManager fateChallengeManager, BookManager bookManager, JavaPlugin plugin) {
         this.condemnationManager = condemnationManager;
         this.banManager = banManager;
         this.fateChallengeManager = fateChallengeManager;
+        this.bookManager = bookManager;
         this.plugin = plugin;
     }
 
@@ -40,8 +43,8 @@ public class DeathNoteListener implements Listener {
         Player player = event.getPlayer();
         BookMeta bookMeta = event.getNewBookMeta();
 
-        // Check if it's a Death Note
-        if (!BookManager.isDeathNote(event.getBook())) {
+        // Check if it's a Death Note using BookManager
+        if (!bookManager.isDeathNote(event.getBook())) {
             return;
         }
 
@@ -117,11 +120,11 @@ public class DeathNoteListener implements Listener {
         startCondemnation(targetPlayer, durationSeconds);
 
         // Announce to server
-        Bukkit.broadcastMessage("§4§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        Bukkit.broadcastMessage("§4§l──────────────────────────────────────────");
         Bukkit.broadcastMessage("§c§l⚠ CONDAMNATION ⚠");
         Bukkit.broadcastMessage("§c" + targetName + " a été condamné à mort!");
         Bukkit.broadcastMessage("§cTemps restant: " + formatTime(durationSeconds));
-        Bukkit.broadcastMessage("§4§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        Bukkit.broadcastMessage("§4§l──────────────────────────────────────────");
 
         // Play scary sound to all players
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {

@@ -19,10 +19,12 @@ import java.util.List;
 public class HealNoteListener implements Listener {
     private final CondemnationManager condemnationManager;
     private final BanManager banManager;
+    private final BookManager bookManager;
 
-    public HealNoteListener(CondemnationManager condemnationManager, BanManager banManager) {
+    public HealNoteListener(CondemnationManager condemnationManager, BanManager banManager, BookManager bookManager) {
         this.condemnationManager = condemnationManager;
         this.banManager = banManager;
+        this.bookManager = bookManager;
     }
 
     @EventHandler
@@ -30,8 +32,8 @@ public class HealNoteListener implements Listener {
         Player player = event.getPlayer();
         BookMeta bookMeta = event.getNewBookMeta();
 
-        // Check if it's a Heal Note
-        if (!BookManager.isHealNote(event.getBook())) {
+        // Check if it's a Heal Note using BookManager
+        if (!bookManager.isHealNote(event.getBook())) {
             return;
         }
 
@@ -78,11 +80,11 @@ public class HealNoteListener implements Listener {
             savedPlayer.getActivePotionEffects().clear();
             
             // Announce
-            Bukkit.broadcastMessage("§2§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Bukkit.broadcastMessage("§2§l──────────────────────────────────────────");
             Bukkit.broadcastMessage("§a§l✓ SALUT ✓");
             Bukkit.broadcastMessage("§a" + targetName + " a été sauvé par la Heal Note!");
             Bukkit.broadcastMessage("§a§lLe sacrifie du sauveur a eu lieu...");
-            Bukkit.broadcastMessage("§2§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+            Bukkit.broadcastMessage("§2§l──────────────────────────────────────────");
             
             // Play healing sound to saved player
             savedPlayer.playSound(savedPlayer.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.0f);

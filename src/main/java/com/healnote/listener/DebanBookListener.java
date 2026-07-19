@@ -21,11 +21,14 @@ import java.util.List;
 public class DebanBookListener implements Listener {
     private final BanManager banManager;
     private final FateChallengeManager fateChallengeManager;
+    private final BookManager bookManager;
     private final JavaPlugin plugin;
 
-    public DebanBookListener(BanManager banManager, FateChallengeManager fateChallengeManager, JavaPlugin plugin) {
+    public DebanBookListener(BanManager banManager, FateChallengeManager fateChallengeManager, 
+                           BookManager bookManager, JavaPlugin plugin) {
         this.banManager = banManager;
         this.fateChallengeManager = fateChallengeManager;
+        this.bookManager = bookManager;
         this.plugin = plugin;
     }
 
@@ -34,8 +37,8 @@ public class DebanBookListener implements Listener {
         Player player = event.getPlayer();
         BookMeta bookMeta = event.getNewBookMeta();
 
-        // Check if it's a Deban Book
-        if (!BookManager.isDebanBook(event.getBook())) {
+        // Check if it's a Deban Book using BookManager
+        if (!bookManager.isDebanBook(event.getBook())) {
             return;
         }
 
@@ -100,13 +103,13 @@ public class DebanBookListener implements Listener {
         fateChallengeManager.startChallenge(bannedPlayerName, player.getName(), guardian.getUniqueId());
 
         // Announce
-        Bukkit.broadcastMessage("§5§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        Bukkit.broadcastMessage("§5§l──────────────────────────────────────────");
         Bukkit.broadcastMessage("§5§l⚔ DÉFI DU DESTIN ⚔");
         Bukkit.broadcastMessage("§5Le Gardien du Destin est apparu!");
         Bukkit.broadcastMessage("§5" + player.getName() + " a 45 minutes pour le vaincre.");
         Bukkit.broadcastMessage("§5Si réussi: " + bannedPlayerName + " sera débanni.");
         Bukkit.broadcastMessage("§5Si échoué: " + bannedPlayerName + " reste banni définitivement.");
-        Bukkit.broadcastMessage("§5§l━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+        Bukkit.broadcastMessage("§5§l──────────────────────────────────────────");
 
         // Play epic sound
         for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {

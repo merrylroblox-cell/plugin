@@ -26,23 +26,24 @@ public class HealNotePlugin extends JavaPlugin {
             condemnationManager = new CondemnationManager();
             banManager = new BanManager();
             fateChallengeManager = new FateChallengeManager();
+            bookManager = new BookManager(this);
             craftManager = new CraftManager(this);
 
             getLogger().info("✓ Managers initialized");
 
             // Register listeners
             getServer().getPluginManager().registerEvents(new DeathNoteListener(
-                condemnationManager, banManager, fateChallengeManager, this
+                condemnationManager, banManager, fateChallengeManager, bookManager, this
             ), this);
             getLogger().info("✓ Death Note listener registered");
 
             getServer().getPluginManager().registerEvents(new HealNoteListener(
-                condemnationManager, banManager
+                condemnationManager, banManager, bookManager
             ), this);
             getLogger().info("✓ Heal Note listener registered");
 
             getServer().getPluginManager().registerEvents(new DebanBookListener(
-                banManager, fateChallengeManager, this
+                banManager, fateChallengeManager, bookManager, this
             ), this);
             getLogger().info("✓ Deban Book listener registered");
 
@@ -64,6 +65,7 @@ public class HealNotePlugin extends JavaPlugin {
             getLogger().info("  • Deban Book - Challenge the Fate Guardian");
             getLogger().info("  • Permanent Ban System");
             getLogger().info("  • Fate Challenge (Défi du Destin)");
+            getLogger().info("  • PersistentDataContainer Security");
             getLogger().info("");
 
         } catch (Exception e) {
@@ -112,5 +114,13 @@ public class HealNotePlugin extends JavaPlugin {
 
     public FateChallengeManager getFateChallengeManager() {
         return fateChallengeManager;
+    }
+
+    public BookManager getBookManager() {
+        return bookManager;
+    }
+
+    public CraftManager getCraftManager() {
+        return craftManager;
     }
 }

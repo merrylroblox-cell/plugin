@@ -6,6 +6,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.NamespacedKey;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -13,9 +14,17 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class CraftManager {
     private final JavaPlugin plugin;
+    private final NamespacedKey deathNoteKey;
+    private final NamespacedKey healNoteKey;
+    private final NamespacedKey debanBookKey;
+    private final NamespacedKey cursedPageKey;
 
     public CraftManager(JavaPlugin plugin) {
         this.plugin = plugin;
+        this.deathNoteKey = new NamespacedKey(plugin, "death_note_id");
+        this.healNoteKey = new NamespacedKey(plugin, "heal_note_id");
+        this.debanBookKey = new NamespacedKey(plugin, "deban_book_id");
+        this.cursedPageKey = new NamespacedKey(plugin, "cursed_page_id");
         registerRecipes();
     }
 
@@ -93,6 +102,8 @@ public class CraftManager {
         ItemStack item = new ItemStack(Material.WRITABLE_BOOK);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§c§lDeath Note");
+        // Add PersistentDataContainer identifier
+        meta.getPersistentDataContainer().set(deathNoteKey, PersistentDataType.STRING, "death_note");
         item.setItemMeta(meta);
         return item;
     }
@@ -101,6 +112,8 @@ public class CraftManager {
         ItemStack item = new ItemStack(Material.WRITABLE_BOOK);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§a§lHeal Note");
+        // Add PersistentDataContainer identifier
+        meta.getPersistentDataContainer().set(healNoteKey, PersistentDataType.STRING, "heal_note");
         item.setItemMeta(meta);
         return item;
     }
@@ -109,7 +122,26 @@ public class CraftManager {
         ItemStack item = new ItemStack(Material.WRITABLE_BOOK);
         ItemMeta meta = item.getItemMeta();
         meta.setDisplayName("§d§lDeban Book");
+        // Add PersistentDataContainer identifier
+        meta.getPersistentDataContainer().set(debanBookKey, PersistentDataType.STRING, "deban_book");
         item.setItemMeta(meta);
         return item;
+    }
+
+    // Getters for NamespacedKeys
+    public NamespacedKey getDeathNoteKey() {
+        return deathNoteKey;
+    }
+
+    public NamespacedKey getHealNoteKey() {
+        return healNoteKey;
+    }
+
+    public NamespacedKey getDebanBookKey() {
+        return debanBookKey;
+    }
+
+    public NamespacedKey getCursedPageKey() {
+        return cursedPageKey;
     }
 }
