@@ -10,7 +10,8 @@
     <packaging>jar</packaging>
 
     <name>HealNote V2</name>
-    <description>A Paper plugin inspired by Death Note with special books and permanent ban system</description>
+    <description>Death Note inspired plugin with permanent ban system</description>
+    <url>https://github.com/merrylroblox-cell/plugin</url>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -26,7 +27,7 @@
     </repositories>
 
     <dependencies>
-        <!-- Paper API -->
+        <!-- Paper API 1.20.1 -->
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -37,6 +38,7 @@
 
     <build>
         <plugins>
+            <!-- Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -46,6 +48,22 @@
                     <target>17</target>
                 </configuration>
             </plugin>
+
+            <!-- JAR Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.healnote.HealNotePlugin</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <!-- Shade Plugin (pour empaqueter les dépendances si besoin) -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
