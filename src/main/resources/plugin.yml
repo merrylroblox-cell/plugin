@@ -1,13 +1,22 @@
 name: HealNote V2
-version: 2.0.0
 main: com.healnote.HealNotePlugin
-description: A Death Note inspired plugin with special books and permanent ban system
+version: 2.0.0
+api-version: 1.21
+description: Death Note inspired plugin with permanent ban system
 authors:
-  - HealNote Dev Team
-api-version: '1.20'
+  - merrylroblox-cell
 
 commands:
   healnote:
-    description: Main command for HealNote V2
-    usage: /healnote <subcommand>
-    aliases: [hn]
+    description: HealNote V2 commands
+    usage: /healnote <command>
+    aliases:
+      - hn
+
+permissions:
+  healnote.*:
+    description: All HealNote commands
+    default: false
+  healnote.admin:
+    description: Admin commands for HealNote
+    default: op
