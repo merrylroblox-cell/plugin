@@ -1,0 +1,13 @@
+name: HealNote V2
+version: 2.0.0
+main: com.healnote.HealNotePlugin
+description: A Death Note inspired plugin with special books and permanent ban system
+authors:
+  - HealNote Dev Team
+api-version: '1.20'
+
+commands:
+  healnote:
+    description: Main command for HealNote V2
+    usage: /healnote <subcommand>
+    aliases: [hn]
