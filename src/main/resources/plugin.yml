@@ -1,7 +1,7 @@
 name: HealNote V2
 main: com.healnote.HealNotePlugin
 version: 2.0.0
-api-version: 1.20
+api-version: 1.21
 description: Death Note inspired plugin with permanent ban system
 authors:
   - merrylroblox-cell
